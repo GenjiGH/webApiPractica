@@ -18,16 +18,37 @@ namespace webApiPractica.Controllers
         /// ENdpoint que retorna el listado de todos los equipos existentes
         /// </summary>
         /// <returns></returns>
+        /// 
+
         [HttpGet]
         [Route("GetAll")]
-        public IActionResult Get() {
-            List<equipos> ListadoEquipo = (from e in _equiposContext.equipos select e).ToList();
-            if(ListadoEquipo.Count() == 0)
+        public IActionResult Get()
+        {
+            List<equipos> ListadoEquipo = (from e in _equiposContext.equipos
+                                           join t in _equiposContext.tipo_equipo
+                                                  on e.tipo_equipo_id equals t.id_tipo_equipo
+                                           join m in _equiposContext.marcas
+                                                  on e.marca_id equals m.id_marcas
+                                           join es in _equiposContext.estados_equipos
+                                                  on e.estado_equipo_id equals es.id_estados_equipos
+                                           select e).ToList();
+            if (ListadoEquipo.Count() == 0)
             {
                 return NotFound();
             }
             return Ok(ListadoEquipo);
         }
+
+        //[HttpGet]
+        //[Route("GetAll")]
+        //public IActionResult Get() {
+        //    List<equipos> ListadoEquipo = (from e in _equiposContext.equipos select e).ToList();
+        //    if(ListadoEquipo.Count() == 0)
+        //    {
+        //        return NotFound();
+        //    }
+        //    return Ok(ListadoEquipo);
+        //}
 
         [HttpGet]
         [Route("GetById/{id}")]
