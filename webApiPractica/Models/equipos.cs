@@ -7,7 +7,7 @@ namespace webApiPractica.Models
     {
         [Key]  // Define que esta es la clave primaria
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
-        public int id_equipo { get; set; }
+        public int id_equipos { get; set; }
 
         [Required]
         [StringLength(50)]
