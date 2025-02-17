@@ -17,4 +17,6 @@ namespace webApiPractica.Models
         [Required]
         public char estado { get; set; }
     }
+
+    //Hola
 }
